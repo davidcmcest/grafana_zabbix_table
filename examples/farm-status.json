@@ -1,0 +1,143 @@
+{
+  "grid": {
+    "rows": 2,
+    "cols": 2,
+    "gap": 8,
+    "cellMinWidth": 150,
+    "cellMinHeight": 80
+  },
+  "cells": [
+    {
+      "id": "cell-farm-name",
+      "row": 1,
+      "col": 1,
+      "rowSpan": 1,
+      "colSpan": 1,
+      "type": "StaticText",
+      "title": "Farm Name",
+      "staticText": "${var:farm}",
+      "style": {
+        "align": "center",
+        "showIcon": false,
+        "badge": false
+      }
+    },
+    {
+      "id": "cell-build-version",
+      "row": 1,
+      "col": 2,
+      "rowSpan": 1,
+      "colSpan": 1,
+      "type": "QueryField",
+      "title": "Build Version",
+      "queryRefId": "A",
+      "fieldSelector": {
+        "mode": "name",
+        "value": "Farm – BuildVersion"
+      },
+      "seriesAgg": "last",
+      "format": {
+        "unit": "none",
+        "decimals": 0
+      },
+      "style": {
+        "align": "center",
+        "showIcon": false,
+        "badge": false
+      }
+    },
+    {
+      "id": "cell-status",
+      "row": 2,
+      "col": 1,
+      "rowSpan": 1,
+      "colSpan": 1,
+      "type": "QueryField",
+      "title": "Status",
+      "queryRefId": "A",
+      "fieldSelector": {
+        "mode": "name",
+        "value": "Farm – Status"
+      },
+      "seriesAgg": "last",
+      "format": {
+        "unit": "none",
+        "decimals": 0
+      },
+      "thresholds": {
+        "type": "text",
+        "rules": [
+          {
+            "op": "==",
+            "value": "Online",
+            "severity": "ok",
+            "icon": "check",
+            "label": "Online"
+          },
+          {
+            "op": "==",
+            "value": "Offline",
+            "severity": "critical",
+            "icon": "alert",
+            "label": "Offline"
+          }
+        ],
+        "defaultSeverity": "warn"
+      },
+      "style": {
+        "align": "center",
+        "showIcon": true,
+        "badge": true
+      }
+    },
+    {
+      "id": "cell-needs-upgrade",
+      "row": 2,
+      "col": 2,
+      "rowSpan": 1,
+      "colSpan": 1,
+      "type": "QueryField",
+      "title": "Upgrade Status",
+      "queryRefId": "B",
+      "fieldSelector": {
+        "mode": "name",
+        "value": "Farm – NeedsUpgrade"
+      },
+      "seriesAgg": "last",
+      "format": {
+        "unit": "none",
+        "decimals": 0
+      },
+      "thresholds": {
+        "type": "number",
+        "rules": [
+          {
+            "op": "==",
+            "value": 1,
+            "severity": "critical",
+            "icon": "alert",
+            "label": "Necesita actualización"
+          },
+          {
+            "op": "==",
+            "value": 0,
+            "severity": "ok",
+            "icon": "check",
+            "label": "Al día"
+          }
+        ],
+        "defaultSeverity": "ok"
+      },
+      "style": {
+        "align": "center",
+        "showIcon": true,
+        "badge": false
+      }
+    }
+  ],
+  "severityColors": {
+    "ok": "#2e7d32",
+    "warn": "#f9a825",
+    "critical": "#c62828"
+  }
+}

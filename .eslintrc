@@ -1,0 +1,8 @@
+{
+  "extends": ["@grafana/eslint-config"],
+  "root": true,
+  "plugins": ["@emotion", "lodash", "jest"],
+  "rules": {
+    "react/prop-types": "off"
+  }
+}

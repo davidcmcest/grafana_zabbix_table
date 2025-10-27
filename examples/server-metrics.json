@@ -1,0 +1,158 @@
+{
+  "grid": {
+    "rows": 3,
+    "cols": 3,
+    "gap": 10,
+    "cellMinWidth": 150,
+    "cellMinHeight": 100
+  },
+  "cells": [
+    {
+      "id": "cpu-usage",
+      "row": 1,
+      "col": 1,
+      "type": "QueryValue",
+      "title": "CPU Usage",
+      "queryRefId": "A",
+      "fieldSelector": {
+        "mode": "name",
+        "value": "cpu"
+      },
+      "seriesAgg": "avg",
+      "format": {
+        "unit": "percent",
+        "decimals": 1
+      },
+      "thresholds": {
+        "type": "number",
+        "rules": [
+          { "op": ">=", "value": 80, "severity": "critical", "icon": "alert" },
+          { "op": ">=", "value": 60, "severity": "warn", "icon": "alert" }
+        ],
+        "defaultSeverity": "ok"
+      },
+      "style": {
+        "align": "center",
+        "showIcon": true
+      }
+    },
+    {
+      "id": "memory-usage",
+      "row": 1,
+      "col": 2,
+      "type": "QueryValue",
+      "title": "Memory",
+      "queryRefId": "B",
+      "fieldSelector": {
+        "mode": "index",
+        "value": 0
+      },
+      "seriesAgg": "last",
+      "format": {
+        "unit": "bytes"
+      },
+      "thresholds": {
+        "type": "number",
+        "rules": [
+          { "op": ">=", "value": 8589934592, "severity": "critical" },
+          { "op": ">=", "value": 4294967296, "severity": "warn" }
+        ],
+        "defaultSeverity": "ok"
+      },
+      "style": {
+        "align": "center",
+        "showIcon": true
+      }
+    },
+    {
+      "id": "disk-usage",
+      "row": 1,
+      "col": 3,
+      "type": "QueryValue",
+      "title": "Disk Space",
+      "queryRefId": "C",
+      "fieldSelector": {
+        "mode": "regex",
+        "value": "disk.*used"
+      },
+      "seriesAgg": "last",
+      "format": {
+        "unit": "percent",
+        "decimals": 0
+      },
+      "thresholds": {
+        "type": "number",
+        "rules": [
+          { "op": ">=", "value": 90, "severity": "critical" },
+          { "op": ">=", "value": 75, "severity": "warn" }
+        ],
+        "defaultSeverity": "ok"
+      },
+      "style": {
+        "align": "center",
+        "showIcon": true
+      }
+    },
+    {
+      "id": "network-in",
+      "row": 2,
+      "col": 1,
+      "colSpan": 2,
+      "type": "QueryValue",
+      "title": "Network In",
+      "queryRefId": "D",
+      "fieldSelector": {
+        "mode": "name",
+        "value": "network_in"
+      },
+      "seriesAgg": "avg",
+      "format": {
+        "unit": "bytes",
+        "suffix": "/s"
+      },
+      "style": {
+        "align": "left",
+        "showIcon": false
+      }
+    },
+    {
+      "id": "uptime",
+      "row": 2,
+      "col": 3,
+      "type": "QueryValue",
+      "title": "Uptime",
+      "queryRefId": "E",
+      "fieldSelector": {
+        "mode": "name",
+        "value": "uptime"
+      },
+      "seriesAgg": "last",
+      "format": {
+        "unit": "none",
+        "suffix": " days"
+      },
+      "style": {
+        "align": "center",
+        "showIcon": false
+      }
+    },
+    {
+      "id": "status",
+      "row": 3,
+      "col": 1,
+      "colSpan": 3,
+      "type": "StaticText",
+      "title": "Server Status",
+      "staticText": "All systems operational as of ${__from}",
+      "style": {
+        "align": "center",
+        "showIcon": false
+      }
+    }
+  ],
+  "severityColors": {
+    "ok": "#2e7d32",
+    "warn": "#f9a825",
+    "critical": "#c62828"
+  }
+}
