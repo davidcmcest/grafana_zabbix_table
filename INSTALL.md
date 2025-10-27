@@ -2,7 +2,7 @@
 
 ## 🚀 Instalación Sin Compilar (Plug and Play)
 
-El plugin ya está compilado y listo para usar. Solo necesitas copiar el directorio `dist/` a tu instalación de Grafana.
+El plugin ya está compilado y listo para usar. Solo necesitas copiar el directorio `COMPILADO/` a tu instalación de Grafana.
 
 ### Método 1: Clonar y copiar
 
@@ -15,13 +15,13 @@ cd grafana_zabbix_table
 git checkout claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX
 
 # 3. Copiar a Grafana (ajusta la ruta según tu instalación)
-sudo cp -r dist /var/lib/grafana/plugins/matrix-builder-panel
+sudo cp -r COMPILADO /var/lib/grafana/plugins/matrix-builder-panel
 
 # 4. Reiniciar Grafana
 sudo systemctl restart grafana-server
 ```
 
-### Método 2: Descargar solo el directorio dist/
+### Método 2: Descargar solo el directorio COMPILADO/
 
 ```bash
 # Descargar archivos compilados directamente
@@ -29,15 +29,15 @@ mkdir -p /tmp/matrix-builder
 cd /tmp/matrix-builder
 
 # Descargar los archivos
-wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/dist/module.js
-wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/dist/plugin.json
-wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/dist/README.md
-wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/dist/LICENSE
+wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/COMPILADO/module.js
+wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/COMPILADO/plugin.json
+wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/COMPILADO/README.md
+wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/COMPILADO/LICENSE
 
 # Crear directorio de imágenes
 mkdir -p img
 cd img
-wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/dist/img/logo.svg
+wget https://raw.githubusercontent.com/davidcmcest/grafana_zabbix_table/claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX/COMPILADO/img/logo.svg
 cd ..
 
 # Copiar a Grafana
@@ -60,7 +60,7 @@ git checkout claude/matrix-builder-panel-011CUXcSoGRMfWuArpMEeDCX
 # 2. Montar el directorio en el contenedor
 docker run -d \
   -p 3000:3000 \
-  -v $(pwd)/dist:/var/lib/grafana/plugins/matrix-builder-panel \
+  -v $(pwd)/COMPILADO:/var/lib/grafana/plugins/matrix-builder-panel \
   --name=grafana \
   grafana/grafana:10.0.0
 ```
@@ -75,7 +75,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./dist:/var/lib/grafana/plugins/matrix-builder-panel
+      - ./COMPILADO:/var/lib/grafana/plugins/matrix-builder-panel
 ```
 
 ## 🔍 Verificar la Instalación
@@ -97,10 +97,10 @@ services:
    - Configurar binding de datos
    - Configurar thresholds
 
-## 📂 Contenido del Directorio dist/
+## 📂 Contenido del Directorio COMPILADO/
 
 ```
-dist/
+COMPILADO/
 ├── module.js          # Plugin compilado (29.6 KB)
 ├── plugin.json        # Manifest del plugin
 ├── README.md          # Documentación

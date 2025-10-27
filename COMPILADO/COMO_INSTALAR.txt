@@ -1,0 +1,54 @@
+═══════════════════════════════════════════════════════════
+  MATRIX BUILDER PANEL - PLUGIN COMPILADO PARA GRAFANA 10
+═══════════════════════════════════════════════════════════
+
+Este directorio contiene el plugin YA COMPILADO y listo para usar.
+NO necesitas npm, node, ni compilar nada.
+
+═══════════════════════════════════════════════════════════
+  INSTALACIÓN RÁPIDA (3 pasos)
+═══════════════════════════════════════════════════════════
+
+1. Copiar este directorio completo a Grafana:
+
+   sudo cp -r COMPILADO /var/lib/grafana/plugins/matrix-builder-panel
+
+2. Dar permisos:
+
+   sudo chown -R grafana:grafana /var/lib/grafana/plugins/matrix-builder-panel
+
+3. Reiniciar Grafana:
+
+   sudo systemctl restart grafana-server
+
+¡Listo! El plugin ya está instalado.
+
+═══════════════════════════════════════════════════════════
+  SI GRAFANA NO CARGA EL PLUGIN
+═══════════════════════════════════════════════════════════
+
+Editar /etc/grafana/grafana.ini y agregar:
+
+[plugins]
+allow_loading_unsigned_plugins = davidcmcest-matrix-builder-panel
+
+Luego reiniciar Grafana.
+
+═══════════════════════════════════════════════════════════
+  CONTENIDO DE ESTE DIRECTORIO
+═══════════════════════════════════════════════════════════
+
+module.js       → Plugin compilado (29.6 KB)
+plugin.json     → Configuración del plugin
+README.md       → Documentación completa
+LICENSE         → Licencia MIT
+img/logo.svg    → Logo del plugin
+
+═══════════════════════════════════════════════════════════
+  SOPORTE
+═══════════════════════════════════════════════════════════
+
+GitHub: https://github.com/davidcmcest/grafana_zabbix_table
+Autor: David Castro Moreno
+
+Para más información, ver README.md incluido en este directorio.
