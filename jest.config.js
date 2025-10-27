@@ -1,6 +1,6 @@
 // Jest configuration for Matrix Builder Panel
 module.exports = {
-  preset: '@grafana/toolkit/src/config/jest.plugin.config.json',
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
@@ -11,4 +11,12 @@ module.exports = {
     '!src/**/*.d.ts',
     '!src/**/__tests__/**',
   ],
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: {
+        jsx: 'react',
+        esModuleInterop: true,
+      }
+    }]
+  },
 };

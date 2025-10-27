@@ -1,5 +1,4 @@
 node_modules
-dist
 coverage
 *.log
 .DS_Store
@@ -9,3 +8,5 @@ coverage
 *.swo
 *~
 .grafana-toolkit
+.eslintcache
+package-lock.json

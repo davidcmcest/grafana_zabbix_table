@@ -5,11 +5,9 @@
   "author": "David Castro Moreno",
   "license": "MIT",
   "scripts": {
-    "build": "grafana-toolkit plugin:build",
-    "test": "grafana-toolkit plugin:test",
-    "dev": "grafana-toolkit plugin:dev",
-    "watch": "grafana-toolkit plugin:dev --watch",
-    "sign": "grafana-toolkit plugin:sign",
+    "build": "webpack --config webpack.config.js --mode production",
+    "dev": "webpack --config webpack.config.js --mode development --watch",
+    "test": "jest",
     "lint": "eslint --cache --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx ."
   },
   "repository": {
@@ -19,7 +17,6 @@
   "devDependencies": {
     "@grafana/data": "^10.0.0",
     "@grafana/runtime": "^10.0.0",
-    "@grafana/toolkit": "^10.0.0",
     "@grafana/ui": "^10.0.0",
     "@types/lodash": "^4.14.195",
     "@types/react": "^18.2.14",
@@ -28,7 +25,16 @@
     "react-dom": "^18.2.0",
     "typescript": "^5.1.6",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0"
+    "@testing-library/react": "^14.0.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "ts-loader": "^9.4.4",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "copy-webpack-plugin": "^11.0.0",
+    "jest": "^29.6.1",
+    "jest-environment-jsdom": "^29.6.1",
+    "ts-jest": "^29.1.1"
   },
   "dependencies": {},
   "engines": {
