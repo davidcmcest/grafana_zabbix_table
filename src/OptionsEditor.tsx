@@ -3,7 +3,7 @@
  * Author: David Castro Moreno
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { StandardEditorProps, SelectableValue } from '@grafana/data';
 import {
   Button,
@@ -37,23 +37,21 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
   const theme = useTheme2();
   const [selectedCellId, setSelectedCellId] = useState<string | null>(null);
 
-  // Ensure value has default structure - handle undefined, null, or partial values
-  const options: MatrixBuilderOptions = useMemo(() => {
-    const defaultGrid = { rows: 2, cols: 2, gap: 8, cellMinWidth: 150, cellMinHeight: 80 };
-    const defaultColors = { ok: '#2e7d32', warn: '#f9a825', critical: '#c62828' };
+  // Initialize with safe defaults - handle all edge cases
+  const safeValue = value || {};
+  const safeGrid = safeValue.grid || {};
 
-    return {
-      grid: value?.grid ? {
-        rows: value.grid.rows ?? defaultGrid.rows,
-        cols: value.grid.cols ?? defaultGrid.cols,
-        gap: value.grid.gap ?? defaultGrid.gap,
-        cellMinWidth: value.grid.cellMinWidth ?? defaultGrid.cellMinWidth,
-        cellMinHeight: value.grid.cellMinHeight ?? defaultGrid.cellMinHeight,
-      } : defaultGrid,
-      cells: Array.isArray(value?.cells) ? value.cells : [],
-      severityColors: value?.severityColors ?? defaultColors,
-    };
-  }, [value]);
+  const options: MatrixBuilderOptions = {
+    grid: {
+      rows: typeof safeGrid.rows === 'number' ? safeGrid.rows : 2,
+      cols: typeof safeGrid.cols === 'number' ? safeGrid.cols : 2,
+      gap: typeof safeGrid.gap === 'number' ? safeGrid.gap : 8,
+      cellMinWidth: typeof safeGrid.cellMinWidth === 'number' ? safeGrid.cellMinWidth : 150,
+      cellMinHeight: typeof safeGrid.cellMinHeight === 'number' ? safeGrid.cellMinHeight : 80,
+    },
+    cells: Array.isArray(safeValue.cells) ? safeValue.cells : [],
+    severityColors: safeValue.severityColors || { ok: '#2e7d32', warn: '#f9a825', critical: '#c62828' },
+  };
 
   const updateGrid = (updates: Partial<MatrixBuilderOptions['grid']>) => {
     onChange({
