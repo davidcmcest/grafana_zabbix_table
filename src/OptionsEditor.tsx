@@ -37,16 +37,23 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
   const theme = useTheme2();
   const [selectedCellId, setSelectedCellId] = useState<string | null>(null);
 
+  // Ensure value has default structure
+  const options: MatrixBuilderOptions = {
+    grid: value?.grid || { rows: 2, cols: 2, gap: 8, cellMinWidth: 150, cellMinHeight: 80 },
+    cells: value?.cells || [],
+    severityColors: value?.severityColors || { ok: '#2e7d32', warn: '#f9a825', critical: '#c62828' },
+  };
+
   const updateGrid = (updates: Partial<MatrixBuilderOptions['grid']>) => {
     onChange({
-      ...value,
-      grid: { ...value.grid, ...updates },
+      ...options,
+      grid: { ...options.grid, ...updates },
     });
   };
 
   const updateCell = (cellId: string, updates: Partial<MatrixCell>) => {
-    const cells = value.cells.map((c) => (c.id === cellId ? { ...c, ...updates } : c));
-    onChange({ ...value, cells });
+    const cells = options.cells.map((c) => (c.id === cellId ? { ...c, ...updates } : c));
+    onChange({ ...options, cells });
   };
 
   const addCell = () => {
@@ -60,27 +67,27 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
       staticText: 'New Cell',
       style: { align: 'center', showIcon: true, badge: false },
     };
-    onChange({ ...value, cells: [...value.cells, newCell] });
+    onChange({ ...options, cells: [...options.cells, newCell] });
     setSelectedCellId(newCell.id);
   };
 
   const removeCell = (cellId: string) => {
-    onChange({ ...value, cells: value.cells.filter((c) => c.id !== cellId) });
+    onChange({ ...options, cells: options.cells.filter((c) => c.id !== cellId) });
     if (selectedCellId === cellId) {
       setSelectedCellId(null);
     }
   };
 
   const duplicateCell = (cellId: string) => {
-    const cell = value.cells.find((c) => c.id === cellId);
+    const cell = options.cells.find((c) => c.id === cellId);
     if (cell) {
       const newCell = { ...cell, id: `cell-${Date.now()}`, row: cell.row + 1 };
-      onChange({ ...value, cells: [...value.cells, newCell] });
+      onChange({ ...options, cells: [...options.cells, newCell] });
     }
   };
 
   const exportLayout = () => {
-    const json = JSON.stringify(value, null, 2);
+    const json = JSON.stringify(options, null, 2);
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -107,7 +114,7 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
     }
   };
 
-  const selectedCell = value.cells.find((c) => c.id === selectedCellId);
+  const selectedCell = options.cells.find((c) => c.id === selectedCellId);
 
   return (
     <VerticalGroup spacing="md">
@@ -132,7 +139,7 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
             <Field label="Rows">
               <Input
                 type="number"
-                value={value.grid.rows}
+                value={options.grid.rows}
                 min={1}
                 max={50}
                 onChange={(e) => updateGrid({ rows: parseInt(e.currentTarget.value, 10) })}
@@ -142,7 +149,7 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
             <Field label="Columns">
               <Input
                 type="number"
-                value={value.grid.cols}
+                value={options.grid.cols}
                 min={1}
                 max={50}
                 onChange={(e) => updateGrid({ cols: parseInt(e.currentTarget.value, 10) })}
@@ -155,7 +162,7 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
             <Field label="Gap (px)">
               <Input
                 type="number"
-                value={value.grid.gap || 8}
+                value={options.grid.gap || 8}
                 onChange={(e) => updateGrid({ gap: parseInt(e.currentTarget.value, 10) })}
                 width={10}
               />
@@ -163,7 +170,7 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
             <Field label="Min Width (px)">
               <Input
                 type="number"
-                value={value.grid.cellMinWidth || 150}
+                value={options.grid.cellMinWidth || 150}
                 onChange={(e) => updateGrid({ cellMinWidth: parseInt(e.currentTarget.value, 10) })}
                 width={10}
               />
@@ -171,7 +178,7 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
             <Field label="Min Height (px)">
               <Input
                 type="number"
-                value={value.grid.cellMinHeight || 80}
+                value={options.grid.cellMinHeight || 80}
                 onChange={(e) => updateGrid({ cellMinHeight: parseInt(e.currentTarget.value, 10) })}
                 width={10}
               />
@@ -204,7 +211,7 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
           </HorizontalGroup>
 
           <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-            {value.cells.map((cell) => (
+            {options.cells.map((cell) => (
               <div
                 key={cell.id}
                 style={{
@@ -256,33 +263,33 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
         <VerticalGroup spacing="sm">
           <Field label="OK Color">
             <ColorPicker
-              color={value.severityColors?.ok || '#2e7d32'}
+              color={options.severityColors?.ok || '#2e7d32'}
               onChange={(color) =>
                 onChange({
-                  ...value,
-                  severityColors: { ...value.severityColors, ok: color },
+                  ...options,
+                  severityColors: { ...options.severityColors, ok: color },
                 })
               }
             />
           </Field>
           <Field label="Warning Color">
             <ColorPicker
-              color={value.severityColors?.warn || '#f9a825'}
+              color={options.severityColors?.warn || '#f9a825'}
               onChange={(color) =>
                 onChange({
-                  ...value,
-                  severityColors: { ...value.severityColors, warn: color },
+                  ...options,
+                  severityColors: { ...options.severityColors, warn: color },
                 })
               }
             />
           </Field>
           <Field label="Critical Color">
             <ColorPicker
-              color={value.severityColors?.critical || '#c62828'}
+              color={options.severityColors?.critical || '#c62828'}
               onChange={(color) =>
                 onChange({
-                  ...value,
-                  severityColors: { ...value.severityColors, critical: color },
+                  ...options,
+                  severityColors: { ...options.severityColors, critical: color },
                 })
               }
             />
