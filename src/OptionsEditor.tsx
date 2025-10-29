@@ -202,10 +202,10 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
             <Button icon="plus" onClick={addCell} size="sm">
               Add Cell
             </Button>
-            <Button icon="import" onClick={exportLayout} size="sm" variant="secondary">
+            <Button icon="download" onClick={exportLayout} size="sm" variant="secondary">
               Export Layout
             </Button>
-            <Button icon="export" size="sm" variant="secondary">
+            <Button icon="upload" size="sm" variant="secondary">
               <label htmlFor="import-layout" style={{ cursor: 'pointer', margin: 0 }}>
                 Import Layout
               </label>
