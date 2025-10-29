@@ -2,7 +2,9 @@
 
 ## 🚀 Instalación Sin Compilar (Plug and Play)
 
-El plugin ya está compilado y listo para usar. Solo necesitas copiar el directorio `COMPILADO/` a tu instalación de Grafana.
+El plugin ya está compilado y listo para usar en la **versión 1.0.3**. Solo necesitas copiar el directorio `COMPILADO/` a tu instalación de Grafana.
+
+**Versión actual: 1.0.3** - Corrige error de inicialización que causaba "Cannot read properties of undefined"
 
 ### Método 1: Clonar y copiar
 

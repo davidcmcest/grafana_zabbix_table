@@ -1,9 +1,11 @@
 ═══════════════════════════════════════════════════════════
-  MATRIX BUILDER PANEL - PLUGIN COMPILADO PARA GRAFANA 10
+  MATRIX BUILDER PANEL v1.0.3 - PLUGIN COMPILADO PARA GRAFANA 10
 ═══════════════════════════════════════════════════════════
 
 Este directorio contiene el plugin YA COMPILADO y listo para usar.
 NO necesitas npm, node, ni compilar nada.
+
+VERSIÓN 1.0.3 - Corrige error de inicialización
 
 ═══════════════════════════════════════════════════════════
   INSTALACIÓN RÁPIDA (3 pasos)
@@ -38,7 +40,7 @@ Luego reiniciar Grafana.
   CONTENIDO DE ESTE DIRECTORIO
 ═══════════════════════════════════════════════════════════
 
-module.js       → Plugin compilado (29.6 KB)
+module.js       → Plugin compilado (31.0 KB)
 plugin.json     → Configuración del plugin
 README.md       → Documentación completa
 LICENSE         → Licencia MIT
