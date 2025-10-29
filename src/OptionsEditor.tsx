@@ -3,7 +3,7 @@
  * Author: David Castro Moreno
  */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { StandardEditorProps, SelectableValue } from '@grafana/data';
 import {
   Button,
@@ -37,12 +37,23 @@ export const OptionsEditor: React.FC<EditorProps> = ({ value, onChange }) => {
   const theme = useTheme2();
   const [selectedCellId, setSelectedCellId] = useState<string | null>(null);
 
-  // Ensure value has default structure
-  const options: MatrixBuilderOptions = {
-    grid: value?.grid || { rows: 2, cols: 2, gap: 8, cellMinWidth: 150, cellMinHeight: 80 },
-    cells: value?.cells || [],
-    severityColors: value?.severityColors || { ok: '#2e7d32', warn: '#f9a825', critical: '#c62828' },
-  };
+  // Ensure value has default structure - handle undefined, null, or partial values
+  const options: MatrixBuilderOptions = useMemo(() => {
+    const defaultGrid = { rows: 2, cols: 2, gap: 8, cellMinWidth: 150, cellMinHeight: 80 };
+    const defaultColors = { ok: '#2e7d32', warn: '#f9a825', critical: '#c62828' };
+
+    return {
+      grid: value?.grid ? {
+        rows: value.grid.rows ?? defaultGrid.rows,
+        cols: value.grid.cols ?? defaultGrid.cols,
+        gap: value.grid.gap ?? defaultGrid.gap,
+        cellMinWidth: value.grid.cellMinWidth ?? defaultGrid.cellMinWidth,
+        cellMinHeight: value.grid.cellMinHeight ?? defaultGrid.cellMinHeight,
+      } : defaultGrid,
+      cells: Array.isArray(value?.cells) ? value.cells : [],
+      severityColors: value?.severityColors ?? defaultColors,
+    };
+  }, [value]);
 
   const updateGrid = (updates: Partial<MatrixBuilderOptions['grid']>) => {
     onChange({
