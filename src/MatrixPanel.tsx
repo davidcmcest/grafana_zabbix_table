@@ -21,7 +21,13 @@ import './styles.css';
 interface MatrixPanelProps extends PanelProps<MatrixBuilderOptions> {}
 
 export const MatrixPanel: React.FC<MatrixPanelProps> = ({ options, data, width, height, replaceVariables: grafanaReplaceVariables }) => {
-  const { grid, cells, severityColors = defaultSeverityColors } = options;
+  // Safely destructure options with defaults to prevent undefined errors
+  const safeOptions = options || {};
+  const {
+    grid = { rows: 2, cols: 2, gap: 8, cellMinWidth: 150, cellMinHeight: 80 },
+    cells = [],
+    severityColors = defaultSeverityColors
+  } = safeOptions;
 
   // Build grid template styles
   const gridStyle = useMemo(() => {
